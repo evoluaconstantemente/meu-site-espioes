@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicativo Espião - Proteja Sua Família</title>
+  <style>
+    /* Estilos Gerais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #0073e6;
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    /* Seção de Descrição */
+    .description-section {
+      background: #ffffff;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: -50px auto 0;
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .description-section h2 {
+      font-size: 28px;
+      color: #0073e6;
+      margin-bottom: 20px;
+    }
+    .description-section p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    /* Botão de Download */
+    .download-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .download-button:hover {
+      background-color: #005bb5;
+    }
+
+    /* Rodapé */
+    footer {
+      background: #0073e6;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Proteja Sua Família com Nosso Aplicativo Espião</h1>
+    <p>Controle parental seguro e monitoramento empresarial confiável.</p>
+  </header>
+
+  <!-- Seção de Descrição -->
+  <div class="description-section">
+    <h2>O Que Nosso Aplicativo Faz?</h2>
+    <p>Nosso aplicativo foi projetado para ajudar pais e empresas a garantir a segurança digital. Com ele, você pode:</p>
+    <ul style="text-align: left; margin: 20px auto; max-width: 600px;">
+      <li><strong>Monitorar chamadas e mensagens:</strong> Acompanhe conversas para garantir que seus filhos ou funcionários estejam seguros.</li>
+      <li><strong>Rastrear localização:</strong> Saiba onde seus entes queridos estão em tempo real.</li>
+      <li><strong>Controlar aplicativos instalados:</strong> Verifique quais apps estão sendo usados no dispositivo.</li>
+      <li><strong>Filtrar conteúdo inapropriado:</strong> Bloqueie sites ou aplicativos prejudiciais.</li>
+    </ul>
+    <p>Todas as funcionalidades são projetadas para proteger e garantir a segurança, sempre com consentimento informado.</p>
+
+    <!-- Botão de Download -->
+    <a id="downloadButton" class="download-button">Baixar Aplicativo</a>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2023 Aplicativo Espião. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Recupera o ID da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const uniqueID = urlParams.get('id');
+
+    if (uniqueID) {
+      // Recupera os arquivos salvos no localStorage
+      const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || {};
+
+      // Verifica se o ID corresponde a um arquivo
+      const fileName = uploadedFiles[uniqueID];
+      if (fileName) {
+        // Configura o botão de download para o arquivo correspondente
+        const downloadButton = document.getElementById('downloadButton');
+        downloadButton.href = fileName; // Substitua pelo caminho real do arquivo, se necessário
+        downloadButton.download = fileName;
+
+        // Adiciona um evento para garantir o download automático ao clicar
+        downloadButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          const link = document.createElement('a');
+          link.href = fileName;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      } else {
+        // Caso o ID não corresponda a nenhum arquivo
+        document.querySelector('.description-section').innerHTML = `
+          <h2>Arquivo não encontrado.</h2>
+          <p>O link pode estar inválido ou expirado.</p>
+        `;
+      }
+    } else {
+      // Caso nenhum ID tenha sido fornecido na URL
+      document.querySelector('.description-section').innerHTML = `
+        <h2>Erro ao carregar o arquivo.</h2>
+        <p>Nenhum identificador foi fornecido.</p>
+      `;
+    }
+  </script>
+</body>
+</html>
