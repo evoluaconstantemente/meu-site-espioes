@@ -97,9 +97,10 @@
       uploadedFiles[uniqueID] = fileName;
       localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
 
-      // Exibe o link gerado
+      // Exibe o link gerado, incluindo o nome do repositório
       const generatedLinkDiv = document.getElementById('generatedLink');
-      const link = `${window.location.origin}/spy-app.html?id=${uniqueID}`;
+      const repositoryName = "spy-app"; // Substitua pelo nome do seu repositório
+      const link = `${window.location.origin}/${repositoryName}/spy-app.html?id=${uniqueID}`;
       generatedLinkDiv.innerHTML = `
         <strong>Seu Link Personalizado:</strong><br>
         <a href="${link}" target="_blank">${link}</a>
